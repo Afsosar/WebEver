@@ -9,7 +9,7 @@ if (isset($_SESSION['token']) && !empty($_SESSION['token'])) {
     if (isset($_SESSION['rol']) && !empty($_SESSION['rol']) && $_SESSION['rol'] == 1) {
         ?>
 
-        <script src="../js/jquery-2.2.4.min.js"></script> 
+        <script src="../js/jquery-2.2.4.min.js"></script>
         <link href="../css/estilos_alan.css" rel="stylesheet">
         <link href="../css/estiloslogin.css" rel="stylesheet">
 
@@ -21,9 +21,9 @@ if (isset($_SESSION['token']) && !empty($_SESSION['token'])) {
                     <div id="diseñobuscarusuario" class="panel-heading" >
                         <div class="col-md-9 col-xs-9 col-sm-9">
                             <h3 style="color: white;"class="panel-title">
-                                <strong> <span id="diseñotituloUsuario" class="glyphicon glyphicon-user"></span>  Usuarios </strong> 
+                                <strong> <span id="diseñotituloUsuario" class="glyphicon glyphicon-user"></span>  Usuarios </strong>
                             </h3>
-                        </div> 
+                        </div>
 
                         <div class="col-md-3 col-xs-3 col-sm-3 inner-addon right-addon">
                             <div class= "form-group  panel-title">
@@ -57,7 +57,7 @@ if (isset($_SESSION['token']) && !empty($_SESSION['token'])) {
 
                     //fin de la funcion.
 
-                    //FUNCTION QUE MUSTRA TODOS LOS USUARIOS REGUISTRADOS EN LA BASE DE DATOS. 
+                    //FUNCTION QUE MUSTRA TODOS LOS USUARIOS REGUISTRADOS EN LA BASE DE DATOS.
 
                     $(document).on("ready", function () {
                         loadData();
@@ -67,21 +67,40 @@ if (isset($_SESSION['token']) && !empty($_SESSION['token'])) {
                             type: "POST",
                             url: "../WebServices/ConsultarTodosLosUsuarios.php",
                             data: {'estado': '1','tkn':"<?php echo $_SESSION['token'] ?>"}
-                        }).done(function (data) {
-                            var usuarios = JSON.parse(data);
-                            for (var i in usuarios) {
-                                $("#fila").append('</div>' +
-                                        '<a class="enlase_usuarios" href="../Vistas/editar_usuarios.php?usuario=' + usuarios[i].id_usuario + '"><h3 id="colorUsuarios" ><strong>' + usuarios[i].nombre_usuario + '</strong></h3>' +
-                                        '<p href="../Vistas/editar_usuarios.php?usuario=' + usuarios[i].id_usuario + '"><h4 id="colortipUsuario"><strong>' + usuarios[i].descripcion_rol + '</strong></h4></p>' +
-                                        '<hr id="disUsusarios">' +
-                                        '</a>'
+                          }).done(function (data) {
+                          var usuarios = JSON.parse(data);
+                          for (var i in usuarios) {
+
+                            var imagen;
+                            if (usuarios[i].descripcion_rol=='Administrador') {
+                              imagen = "../imagenes/admin.png";
+                            } else if(usuarios[i].descripcion_rol=='Cliente') {
+                                imagen = "../imagenes/cliente.png";
+                            }
+                              $("#fila").append('</div>' +
+                                '<a class="enlase_usuarios" href="../Vistas/editar_usuarios.php?usuario=' + usuarios[i].id_usuario + '"><div class = "col-md-6 col-sm-6">'+
+                               '<div class="media">' +
+                              '<div class="media-left">' +
+                              '<img style="width:60px ; heigh:60px ;"  class="media-object img-circle circle-img" src="'+imagen+'">' +
+                              '</div>' +
+                               '<div class="media-body">' +
+                                   '<h4  id="colorUsuarios" ><strong>' + usuarios[i].nombre_usuario + '</strong></h4>' +
+                                      '<p href="../Vistas/editar_usuarios.php?usuario=' + usuarios[i].id_usuario + '"></p>'+
+                                      '<h4 id="colortipUsuario"><strong>' + usuarios[i].descripcion_rol + '</strong></h4>' +
+                                      '<hr id="disUsusarios">' +
+                                      '</div>'+
+                                      '</div>' +
+                                  '</div>' +
+'</a>'
+
+
                                         );
                             }
                         });
                     }
                 </script>
-            </div> 
-        </div> 
+            </div>
+        </div>
 
         <a  href="../Vistas/formulario_registro.php" class="float">
             <i class="glyphicon glyphicon-plus my-float"></i>

@@ -2,7 +2,7 @@
 $titulo = 'Formulario de  Registro';
 include_once '../plantillas/documento-inicio.inc.php';
 include_once '../plantillas/barra-de-navegacion-navbar.inc.php';
-include '../config/Errores.inc.php';
+include '../Errores.inc.php';
 ?>
 
 <head>
@@ -86,7 +86,7 @@ include '../config/Errores.inc.php';
                         </div>
                     </form>
                 </div>
-            </div>   
+            </div>
         </div>
     </div>
 
@@ -233,7 +233,7 @@ include '../config/Errores.inc.php';
                     'usariopassword': document.formulario.usariopassword.value,
                     'usariopassword1': document.formulario.usariopassword1.value,
                     'usuarioemail': document.formulario.usuarioemail.value
-                    
+
                 }
 
             }).done(function (data) {
@@ -260,5 +260,3 @@ include '../config/Errores.inc.php';
 <?php
 include_once '../plantillas/documento-cierre.inc.php';
 ?>
-
-
